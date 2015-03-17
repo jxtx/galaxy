@@ -1,0 +1,12 @@
+language: python
+sudo: false
+python:
+  - "2.7"
+  - "2.6"
+install:
+  - python scripts/fetch_eggs.py
+script:
+  - sh run_tests.sh --unit
+
+
+
