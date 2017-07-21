@@ -42,11 +42,11 @@ module.exports = {
         admin   : './galaxy/scripts/apps/admin.js',
     },
     output  : {
-        path        : '../static/scripts/bundled',
+        path        : __dirname + '/../static/scripts/bundled',
         filename    : '[name].bundled.js'
     },
     resolve : {
-        root  : scriptsBase,
+        modules: [ scriptsBase ],
         alias : {
             //TODO: correct our imports and remove these rules
             // Backbone looks for these in the same root directory
@@ -55,22 +55,23 @@ module.exports = {
         }
     },
     module : {
-        loaders : [
-            { test: /\.js$/,
-              exclude: /node_modules/,
-              loader: 'babel-loader',
-              query: { compact: false } },
+        loaders : [ { 
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                options: {
+                    compact: false,
+                },
+            },
         ],
     },
-    resolveLoader : {
-        alias : {
-            // since we support both requirejs i18n and non-requirejs and both use a similar syntax,
-            // use an alias so we can just use one file
-            i18n : 'amdi18n'
+    resolveLoader: {
+        alias: {
+            i18n: "amdi18n-loader"
         }
     },
     plugins : [
-        new webpack.optimize.CommonsChunkPlugin( 'libs', 'libs.bundled.js' ),
+        new webpack.optimize.CommonsChunkPlugin( { 'name': 'libs', 'filename': 'libs.bundled.js' } ),
         // this plugin allows using the following keys/globals in scripts (w/o req'ing them first)
         // and webpack will automagically require them in the bundle for you
         new webpack.ProvidePlugin({

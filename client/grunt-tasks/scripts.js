@@ -18,12 +18,8 @@ module.exports = function( grunt ){
         },
         // uglify settings used when scripts are compressed/minified
         compressedSettings = {
-            mangle : {
-                screw_ie8 : true
-            },
             compress : {
                 // high compression options
-                screw_ie8 : true,
                 sequences: true,
                 dead_code : true,
                 drop_debugger : true,
